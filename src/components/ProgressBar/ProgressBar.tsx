@@ -33,15 +33,17 @@ import PomoCounter from "../../components/PomoCounter/PomoCounter";
 import { PomoCounterPosition } from "../../components/PomoCounter/PomoCounter.styled";
 import TimerForm from "../../components/Controls/TimerForm";
 import SettingsModal from "../../components/Modal/SettingsModal";
-import ProgressBar from "../../components/ProgressBar/ProgressBar";
-import { timeStamp } from "console";
-
-//for the child timestamp
 
 
+import { CircularProgressbar,  buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
-const Room = (props: RoomProps): JSX.Element => {
-	const {
+import Room from "../../Pages/Room/Room"
+
+
+
+function ProgressBar (props: RoomProps){
+    const {
 		globalUsersConnected,
 		isBreak,
 		setIsBreak,
@@ -216,107 +218,35 @@ const Room = (props: RoomProps): JSX.Element => {
 		}
 	}, [userName, setIsUsernameModalOpen]);
 
-	return (
-		<>
-			<Header isBreak={isBreak} />
-			<GlobalStyle
-				backColor={!isBreak ? workBackground : breakBackground}
-			/>
-			<StyledDiv>
-				<Center>
-					<TimerTitle
-						isLoaded={isLoaded}
-						workGrey={workGrey}
-						isBreak={isBreak}
-						isPublicRoom={isPublicRoom}
-					/>
-
-					
-					<ProgressBar
-						
-					
-					/>
-					<TimerControls
-						pauseTimer={pauseTimer}
-						isTimerPaused={isTimerPaused}
-						resetTimer={resetTimer}
-						shareRoom={shareRoom}
-						isLoaded={isLoaded}
-						isTimerRunningClient={isTimerRunningClient}
-						setIsTimerAddModalOpen={setIsTimerAddModalOpen}
+    return (
+    
+        <div>
+           <CircularProgressbarWithChildren value={66}>
+                {/* Put any JSX content in here that you'd like. It'll be vertically and horizonally centered. */}
+                <Timestamp
+						color={workGrey}
 						roomName={roomName}
-						isBreak={isBreak}
-						showWorkButtonOnMobile={showWorkButtonOnMobile}
-						iconColor={workGrey}
-						setIsSettingsModalOpen={setIsSettingsModalOpen}
-					/>
-
-					{!showWorkButtonOnMobile && (
-						<WorkBreakButton
-							roomName={roomName}
-							isBreak={isBreak}
-							isTimerPaused={isTimerPaused}
-							isTimerRunningClient={isTimerRunningClient}
-							isLoaded={isLoaded}
-							isMobile={!showWorkButtonOnMobile}
-							iconColor={workGrey}
-						/>
-					)}
-					<TimerForm isLoaded={isLoaded} />
-				</Center>
-
-				<MessageLogs messageList={messageList} />
-
-				<ToastContainer theme="dark" pauseOnFocusLoss />
-				<UserBubbles userListInRoom={userListInRoom} />
-
-				<PomoCounterPosition>
-					<PomoCounter
-						workSessions={workSessions}
-						breakSessions={breakSessions}
-						setWorkSessions={setWorkSessions}
-						setBreakSessions={setBreakSessions}
-					/>
-				</PomoCounterPosition>
-
-				<ModalComponent
-					isModalOpen={isTimerAddModalOpen}
-					setIsModalOpen={setIsTimerAddModalOpen}
-				>
-					<AddTimerModal
 						timerMinuteButtons={
 							isBreak
 								? breakTimerMinuteButtons
 								: workTimerMinuteButtons
 						}
+						isTimerRunningClient={isTimerRunningClient}
 						isBreak={isBreak}
-						updateTimerButtons={updateTimerButtons}
-						setIsTimerAddModalOpen={setIsTimerAddModalOpen}
-						isTimerAddModalOpen={isTimerAddModalOpen}
-					/>
-				</ModalComponent>
-
-				<ModalComponent
-					isModalOpen={isSettingsModalOpen}
-					setIsModalOpen={setIsSettingsModalOpen}
-				>
-					<SettingsModal
-						roomName={roomName}
-						isPublicRoom={isPublicRoom}
-					/>
-				</ModalComponent>
-
-				<Footer
-					numUsers={globalUsersConnected}
-					isBreak={isBreak}
-					usersInRoom={usersInRoom}
-					connectionStatus={
-						<ConnectionState isConnected={isConnected} />
-					}
+						isTimerPaused={isTimerPaused}
+						isLoaded={isLoaded}
+						setIsLoaded={setIsLoaded}
+						setIsTimerPaused={setIsTimerPaused}
+						startCountdown={startCountdown}
+						setIsTimerRunningClient={setIsTimerRunningClient}
+						setIsBreak={setIsBreak}
+						setWorkSessions={setWorkSessions}
+						setBreakSessions={setBreakSessions}
 				/>
-			</StyledDiv>
-		</>
-	);
-};
+            </CircularProgressbarWithChildren>; 
+           
+        </div>
+    )
+}
 
-export default Room;
+export default ProgressBar
