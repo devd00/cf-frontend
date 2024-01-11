@@ -233,9 +233,33 @@ const Room = (props: RoomProps): JSX.Element => {
 
 					
 					<ProgressBar
-						
+					  value = {10}  //look into socket values for the num and denom for the %
+					  
+					  > 
+						 
+						 <Timestamp
+						 color={workGrey}
+						 roomName={roomName}
+						 timerMinuteButtons={
+							 isBreak
+								 ? breakTimerMinuteButtons
+								 : workTimerMinuteButtons
+						 }
+						 isTimerRunningClient={isTimerRunningClient}
+						 isBreak={isBreak}
+						 isTimerPaused={isTimerPaused}
+						 isLoaded={isLoaded}
+						 setIsLoaded={setIsLoaded}
+						 setIsTimerPaused={setIsTimerPaused}
+						 startCountdown={startCountdown}
+						 setIsTimerRunningClient={setIsTimerRunningClient}
+						 setIsBreak={setIsBreak}
+						 setWorkSessions={setWorkSessions}
+						 setBreakSessions={setBreakSessions}
+				 		/>
 					
-					/>
+					</ProgressBar>
+
 					<TimerControls
 						pauseTimer={pauseTimer}
 						isTimerPaused={isTimerPaused}
